@@ -1,5 +1,6 @@
-package com.jozzias.outboxpattern.connections;
+package com.jozzias.outboxpattern.infrastructure.rabbitMQ.connection;
 
+import com.jozzias.outboxpattern.infrastructure.rabbitMQ.QueueName;
 import jakarta.annotation.PostConstruct;
 import org.springframework.amqp.core.*;
 import org.springframework.stereotype.Component;
@@ -7,7 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class RabbitMQConnection {
     private static final String NOME_EXCHANGE = "amq.direct";
-    public static final String BOOKS_QUEUE = "BOOKS";
 
     private AmqpAdmin amqpAdmin;
 
@@ -30,7 +30,7 @@ public class RabbitMQConnection {
         // This function is executed when our class is instantiated by Spring, due to the @Component annotation.
         @PostConstruct
         private void adiciona(){
-            Queue bookQueue = this.queue(BOOKS_QUEUE);
+            Queue bookQueue = this.queue(QueueName.BOOKS_QUEUE);
 
             DirectExchange directExchange = this.directExchange();
 
