@@ -7,23 +7,26 @@ import com.jozzias.outboxpattern.infrastructure.rabbitMQ.QueueName;
 import com.jozzias.outboxpattern.infrastructure.rabbitMQ.service.RabbitMQService;
 import com.jozzias.outboxpattern.repository.BookRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class BookServiceImpl implements BookService{
 
     final private BookRepository bookRepository;
 
-    final private RabbitMQService rabbitMQService;
+    final private BookOutboxService bookOutboxService;
 
-    public BookServiceImpl(BookRepository bookRepository, RabbitMQService rabbitMQService) {
+    public BookServiceImpl(BookRepository bookRepository, BookOutboxService bookOutboxService) {
         this.bookRepository = bookRepository;
-        this.rabbitMQService = rabbitMQService;
+        this.bookOutboxService = bookOutboxService;
     }
 
+    @Transactional
     @Override
     public Book save(BookRequest bookDTO) {
-        var bookResponse = bookRepository.save(new Book(bookDTO));
-        rabbitMQService.send(QueueName.BOOKS_QUEUE, new BookResponse(bookResponse));
-        return bookResponse;
+        var book = bookRepository.save(new Book(bookDTO));
+        bookOutboxService.save(book);
+        return book;
     }
 }

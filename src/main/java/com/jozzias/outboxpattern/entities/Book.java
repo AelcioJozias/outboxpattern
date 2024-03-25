@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -19,21 +20,14 @@ import java.util.UUID;
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-
-    private UUID UUID;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     private String description;
 
     private String title;
 
     private LocalDateTime year;
-
-    @PrePersist
-    private void generateUUID() {
-        this.UUID = (java.util.UUID.randomUUID());
-    }
 
     public Book(BookRequest bookRequest) {
         this.title = bookRequest.title();
