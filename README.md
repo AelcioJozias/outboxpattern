@@ -19,6 +19,8 @@ dos dados quando usamos sistemas distribuidos
 - [Postgres](https://www.postgresql.org/)
 - [RabbitMQ](https://www.rabbitmq.com/)
 - [Sprig Scheduling Tasks](https://spring.io/guides/gs/scheduling-tasks)
+- [Flyway](https://flywaydb.org/)
+- [Docker](https://www.docker.com/products/docker-hub/)
 
 ## Práticas adotadas
 
@@ -27,11 +29,14 @@ dos dados quando usamos sistemas distribuidos
 - Consultas com Spring Data JPA
 - Injeção de Dependências
 - Geração automática do Swagger com a OpenAPI 3
+- Outbox Pattern
 
 ## Como Executar
 
 - Clonar repositório git
 - Na pasta docker executar o comando docker-compose up -d, que vai levantar os containers necessários para a aplicação (postgres,rabitmq)
+- Após subir o container, executar o comando sql: <strong> create database "outboxApplication"</strong>, para criar o banco da aplicação
+- Para baixar o consumer que vai receber as mensagens geradas por essa aplicação: https://github.com/AelcioJozias/outboxPatternConsumer
 ```
 
 A API poderá ser acessada em [localhost:8080](http://localhost:8080).
