@@ -1,0 +1,1 @@
+alter table book_outbox add column created_at timestamp without time zone;

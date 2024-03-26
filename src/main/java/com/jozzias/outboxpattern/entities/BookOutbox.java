@@ -2,6 +2,7 @@ package com.jozzias.outboxpattern.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -16,4 +17,6 @@ public class BookOutbox  {
     private LocalDateTime year;
     @Enumerated(EnumType.STRING)
     private OutboxTransactionStatus transactionStatus = OutboxTransactionStatus.WAITING;
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 }

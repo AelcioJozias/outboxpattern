@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.management.Query;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +28,7 @@ public class ScheduledBookOutbox {
     @Transactional
     @Scheduled(fixedDelay = 3000)
     public void execute() {
-        List<BookOutbox> bookOutboxList = bookOutboxRepository.findBookOutboxByTransactionStatus(OutboxTransactionStatus.WAITING);
+        List<BookOutbox> bookOutboxList = bookOutboxRepository.findBookOutboxByTransactionStatusOrderByCreatedAtDesc(OutboxTransactionStatus.WAITING);
         bookOutboxList.forEach(this::send);
     }
 

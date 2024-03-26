@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface BookOutboxRepository extends JpaRepository<BookOutbox, UUID> {
-    List<BookOutbox> findBookOutboxByTransactionStatus(OutboxTransactionStatus status);
+    List<BookOutbox> findBookOutboxByTransactionStatusOrderByCreatedAtDesc(OutboxTransactionStatus status);
 }
