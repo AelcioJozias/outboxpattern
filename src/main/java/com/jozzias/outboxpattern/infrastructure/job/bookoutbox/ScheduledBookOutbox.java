@@ -25,8 +25,8 @@ public class ScheduledBookOutbox {
         this.bookOutboxRepository = bookOutboxRepository;
     }
 
-    @Transactional
-    @Scheduled(fixedDelay = 3000)
+    @Transactional(rollbackFor = {Exception.class})
+    @Scheduled(fixedDelay = 300000)
     public void execute() {
         List<BookOutbox> bookOutboxList = bookOutboxRepository.findBookOutboxByTransactionStatusOrderByCreatedAtDesc(OutboxTransactionStatus.WAITING);
         bookOutboxList.forEach(this::send);

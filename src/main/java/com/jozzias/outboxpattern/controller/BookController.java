@@ -28,4 +28,9 @@ public class BookController implements BookControllerSwagger {
         var book = bookService.save(bookRequest);
         return new BookResponse(book);
     }
+
+            @GetMapping(value = "/sincronized")
+    public void syncronizedTestOnAbean() {
+        System.out.println("testando");
+    }
 }

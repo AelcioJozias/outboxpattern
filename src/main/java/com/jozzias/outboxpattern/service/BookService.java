@@ -6,4 +6,6 @@ import com.jozzias.outboxpattern.entities.Book;
 public interface BookService {
 
     Book save(BookRequest bookDTO);
+
+    void  testSyncronized();
 }

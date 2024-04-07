@@ -29,4 +29,9 @@ public class BookServiceImpl implements BookService{
         bookOutboxService.save(book);
         return book;
     }
+
+    @Override
+    public synchronized void testSyncronized() {
+
+    }
 }
